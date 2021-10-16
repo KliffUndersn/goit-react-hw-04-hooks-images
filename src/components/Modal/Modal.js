@@ -1,29 +1,26 @@
-import React, { Component } from 'react'
+import React, { useEffect } from 'react'
 
 
-export default class Modal extends Component {
+export default function Modal ({children, modalClose}) {
 
-    componentDidMount() {
-        window.addEventListener('keydown',this.closeModals)
-     }
-     componentWillUnmount() {
-        window.removeEventListener('keydown',this.closeModals)
-     }
+    useEffect(() => {
+        window.addEventListener('keydown',closeModals)
+            return () =>{
+        window.removeEventListener('keydown',closeModals)
+     }})
      
-    closeModals = (e) => {
+    const closeModals = (e) => {
            if (e.code === "Escape") {
-              this.props.modalClose();
+              modalClose();
             }
         }
-     
-     render(){
-        const { children } = this.props;
+
     return (
         
-        <div className="Overlay" onClick={this.props.modalClose}>
+        <div className="Overlay" onClick={modalClose}>
         <div className="Modal">
             {children}
         </div>
         </div>
-    )}
+    )
 }

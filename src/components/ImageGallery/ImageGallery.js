@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 
-const ImageGallery = ({data, modalOpen, galleryList}) => {   
+const ImageGallery = ({data, modalOpen}) => {   
             return (
                 <div>
-                    <ul className="ImageGallery" ref={galleryList}>
+                    <ul className="ImageGallery">
                     {data.map(e=>{return <li className="ImageGalleryItem" key={e.id} >
                     <img src={e.webformatURL} alt={e.tags} className="ImageGalleryItem-image" onClick={()=>modalOpen(e.largeImageURL,e.tags)}/>
                      </li>})}

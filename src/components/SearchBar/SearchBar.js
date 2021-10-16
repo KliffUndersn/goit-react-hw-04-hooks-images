@@ -1,39 +1,37 @@
-import { Component } from 'react'
+import { useState } from 'react'
 import fields from "./fields"
 
-export default class SearchBar extends Component {
+export default function SearchBar ({submit}) {
 
-    state = {
-      searchValue: ""
-    }
+    const [searchValue, setSearchValue] = useState("")
 
-    handleSubmit = (e) => {
+    const handleSubmit = (e) => {
       e.preventDefault();
-      this.props.submit(this.state.searchValue)
-      this.setState({searchValue:""})
+      submit(searchValue)
+      setSearchValue("")
     }
     
-    handleChange = (e) => {
-      return this.setState({searchValue:e.target.value})
+    const handleChange = (e) => {
+      return setSearchValue(e.target.value)
     }
 
-      render () {
+      
         return(
             <header className="Searchbar">
             <form className="SearchForm"
-                onSubmit={this.handleSubmit}
+                onSubmit={handleSubmit}
             >
               <button type="submit" className="SearchForm-button">
                 <span className="SearchForm-button-label">Search</span>
               </button>
                   <input
                   {...fields.query}
-                  onChange={this.handleChange}
-                  value={this.state.searchValue}
+                  onChange={handleChange}
+                  value={searchValue}
                   />
               
             </form>
             </header>  
-        )}
+        )
 }
 
